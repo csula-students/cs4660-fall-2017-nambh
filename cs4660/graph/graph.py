@@ -36,6 +36,15 @@ def construct_graph_from_file(graph, file_path):
     2. for each following line (from second line to last line), add them as edge to graph
     3. return the graph
     """
+    graph = AdjacencyList();
+    with open('filename') as f:
+    lines = f.readlines()
+
+    for line in lines
+        #node1, node2, weight = line.split(':')
+        edgePara = line.replace(":", ",")
+        edge = Edge(edgePara)
+        graph.add_edge(edge)
     return graph
 
 class Node(object):
@@ -158,5 +167,3 @@ class ObjectOriented(object):
 
     def remove_edge(self, edge):
         pass
-
-
