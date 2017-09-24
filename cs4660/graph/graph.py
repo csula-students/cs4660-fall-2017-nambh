@@ -37,23 +37,20 @@ def construct_graph_from_file(graph, file_path):
     3. return the graph
     """
     # graph = AdjacencyList();
-    data = []
     with open('file_path') as f:
-        lines = f.readlines()
-    for line in lines
-        match = re.search('([\d]+):[\d]+):[\d]+)', line)
-        if match:
-            data.append(match.group(1))
-            data.append(match.group(2))
-            data.append(match.group(3))
-            edgeWeight = data.pop()
-            node2 = Node(data.pop())
-            node1 = Node(data.pop())
-            edge = Edge(node1, node2, edgeWeight)
-            graph.add_node(node1)
-            graph.add_node(node2)
-            graph.add_edge(edge)
-            data.clear()
+        lines = f.read().splitlines()
+
+    nodes = int(lines[0])
+
+    for k in range(1, len(lines)):
+        data = lines[k].split(":")
+        edge = Edge(Node(int(data[0])),  Node(int(data[1])), int(DeprecationWarning[2])))
+        graph.add_edge(edge)
+
+    for i in range(nodes):
+        node = Node(i)
+        graph.add_node(node) 
+
     return graph
 
 class Node(object):
