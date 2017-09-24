@@ -178,23 +178,49 @@ class AdjacencyMatrix(object):
         return result
 
     def add_node(self, node):
-        for k in range(0,len(self.nodes)):
-            if self.nodes(k) = node:
-                return False
+        if node in self.nodes:
+            return False
+        else:
+            self.nodes.append(node)
+
 
 
     def remove_node(self, node):
-        pass
+        if node not in self.nodes:
+            return False
+        else:
+            self.nodes.remove(node)
+            del self.adjacency_matrix(__get_node_index(node))
+              for num in range(0,len(self.nodes)):
+                  del self.adjacency_matrix[num][(__get_node_index(node))]
+                  return True
+
 
     def add_edge(self, edge):
-        pass
+        if self.adjacency_matrix[edge.from_node][edge.to_node] != 0:
+            return False
+        else:
+            self.adjacency_matrix[edge.to_node][edge.from_node] = edge.weight
+            self.adjacency_matrix[edge.from_node][edge.to_node] = edge.weight
+            return True
+
+
 
     def remove_edge(self, edge):
-        pass
+        if self.adjacency_matrix[edge.from_node][edge.to_node] != 0:
+            self.adjacency_matrix[edge.to_node][edge.from_node] = 0
+            self.adjacency_matrix[edge.from_node][edge.to_node] = 0
+            return True
+        else:
+            return False
+
 
     def __get_node_index(self, node):
         """helper method to find node index"""
-        pass
+        for index in range(0, len(self.nodes)):
+            if self.nodes(k) = node:
+                return index
+        return False
 
 class ObjectOriented(object):
     """ObjectOriented defines the edges and nodes as both list"""
