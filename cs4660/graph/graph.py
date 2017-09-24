@@ -36,15 +36,24 @@ def construct_graph_from_file(graph, file_path):
     2. for each following line (from second line to last line), add them as edge to graph
     3. return the graph
     """
-    graph = AdjacencyList();
-    with open('filename') as f:
-    lines = f.readlines()
-
+    # graph = AdjacencyList();
+    data = []
+    with open('file_path') as f:
+        lines = f.readlines()
     for line in lines
-        #node1, node2, weight = line.split(':')
-        edgePara = line.replace(":", ",")
-        edge = Edge(edgePara)
-        graph.add_edge(edge)
+        match = re.search('([\d]+):[\d]+):[\d]+)', line)
+        if match:
+            data.append(match.group(1))
+            data.append(match.group(2))
+            data.append(match.group(3))
+            edgeWeight = data.pop()
+            node2 = Node(data.pop())
+            node1 = Node(data.pop())
+            edge = Edge(node1, node2, edgeWeight)
+            graph.add_node(node1)
+            graph.add_node(node2)
+            graph.add_edge(edge)
+            data.clear()
     return graph
 
 class Node(object):
