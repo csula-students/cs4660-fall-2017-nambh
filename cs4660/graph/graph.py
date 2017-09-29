@@ -24,6 +24,7 @@ A Graph has following methods:
 from io import open
 from operator import itemgetter
 
+
 def construct_graph_from_file(graph, file_path):
     """
     TODO: read content from file_path, then add nodes and edges to graph object
@@ -44,7 +45,7 @@ def construct_graph_from_file(graph, file_path):
 
     for k in range(1, len(lines)):
         data = lines[k].split(":")
-        edge = Edge(Node(int(data[0])),  Node(int(data[1])), int(data[2])))
+        edge = Edge(Node(int(data[0])),  Node(int(data[1])), int(data[2]))
         graph.add_edge(edge)
 
     for i in range(nodes):
@@ -53,37 +54,46 @@ def construct_graph_from_file(graph, file_path):
 
     return graph
 
+
 class Node(object):
     """Node represents basic unit of graph"""
+
     def __init__(self, data):
         self.data = data
 
     def __str__(self):
         return 'Node({})'.format(self.data)
+
     def __repr__(self):
         return 'Node({})'.format(self.data)
 
     def __eq__(self, other_node):
         return self.data == other_node.data
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __hash__(self):
         return hash(self.data)
 
+
 class Edge(object):
     """Edge represents basic unit of graph connecting between two edges"""
+
     def __init__(self, from_node, to_node, weight):
         self.from_node = from_node
         self.to_node = to_node
         self.weight = weight
+
     def __str__(self):
         return 'Edge(from {}, to {}, weight {})'.format(self.from_node, self.to_node, self.weight)
+
     def __repr__(self):
         return 'Edge(from {}, to {}, weight {})'.format(self.from_node, self.to_node, self.weight)
 
     def __eq__(self, other_node):
         return self.from_node == other_node.from_node and self.to_node == other_node.to_node and self.weight == other_node.weight
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
@@ -96,6 +106,7 @@ class AdjacencyList(object):
     AdjacencyList is one of the graph representation which uses adjacency list to
     store nodes and edges
     """
+
     def __init__(self):
         # adjacencyList should be a dictonary of node to edges
         self.adjacency_list = {}
@@ -109,7 +120,6 @@ class AdjacencyList(object):
         else:
             return False
 
-
     def neighbors(self, node):
         neighbors = []
         if node in self.adjacency_list:
@@ -118,7 +128,6 @@ class AdjacencyList(object):
             return neighbors
         else:
             return 0
-
 
     def add_node(self, node):
         if node in self.adjacency_list:
@@ -132,7 +141,7 @@ class AdjacencyList(object):
         if node in self.adjacency_list:
             self.adjacency_list.pop(node, None)
             isRemove = True
-        for nodes, edges in self.adjacency_list.items()
+        for nodes, edges in self.adjacency_list.items():
             if node in nodes:
                 nodes.remove(node)
                 isRemove = True
@@ -155,6 +164,7 @@ class AdjacencyList(object):
         else:
             return False
 
+
 class AdjacencyMatrix(object):
     def __init__(self):
         # adjacency_matrix should be a two dimensions array of numbers that
@@ -173,8 +183,8 @@ class AdjacencyMatrix(object):
     def neighbors(self, node):
         neighbors = []
         for k in range(len(self.adjacency_matrix[node.data])):
-            if self.adjacency_matrix[node.data][k] != 0;
-            neighbors.append(Node(k))
+            if self.adjacency_matrix[node.data][k] != 0:
+                neighbors.append(Node(k))
         return result
 
     def add_node(self, node):
@@ -183,18 +193,15 @@ class AdjacencyMatrix(object):
         else:
             self.nodes.append(node)
 
-
-
     def remove_node(self, node):
         if node not in self.nodes:
             return False
         else:
             self.nodes.remove(node)
             del self.adjacency_matrix(__get_node_index(node))
-              for num in range(0,len(self.nodes)):
-                  del self.adjacency_matrix[num][(__get_node_index(node))]
-                  return True
-
+            for num in range(0, len(self.nodes)):
+                del self.adjacency_matrix[num][(__get_node_index(node))]
+            return True
 
     def add_edge(self, edge):
         if self.adjacency_matrix[edge.from_node][edge.to_node] != 0:
@@ -204,8 +211,6 @@ class AdjacencyMatrix(object):
             self.adjacency_matrix[edge.from_node][edge.to_node] = edge.weight
             return True
 
-
-
     def remove_edge(self, edge):
         if self.adjacency_matrix[edge.from_node][edge.to_node] != 0:
             self.adjacency_matrix[edge.to_node][edge.from_node] = 0
@@ -214,23 +219,23 @@ class AdjacencyMatrix(object):
         else:
             return False
 
-
     def __get_node_index(self, node):
         """helper method to find node index"""
         for index in range(0, len(self.nodes)):
-            if self.nodes(k) = node:
+            if self.nodes(index) = node:
                 return index
         return False
 
+
 class ObjectOriented(object):
     """ObjectOriented defines the edges and nodes as both list"""
+
     def __init__(self):
         # implement your own list of edges and nodes
         self.edges = []
         self.nodes = []
 
     def adjacent(self, node_1, node_2):
-        pass
 
     def neighbors(self, node):
         pass
