@@ -137,7 +137,7 @@ class AdjacencyList(object):
 
     def remove_node(self, node):
         for k in range(len(self.adjacency_list)):
-            if self.adjacency_list(k) = node:
+            if self.adjacency_list(k) == node:
                 del self.adjacency_list[node]
                 return true
         return false
@@ -170,7 +170,7 @@ class AdjacencyMatrix(object):
         # as separate list of nodes
         self.nodes = []
 
-    def __get_node_index(self, node):
+def __get_node_index(self, node):
         """helper method to find node index"""
         if node not in self.nodes:
             return False
