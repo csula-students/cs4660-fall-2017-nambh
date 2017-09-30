@@ -23,12 +23,12 @@ A Graph has following methods:
 
 from io import open
 from operator import itemgetter
+
+
 def construct_graph_from_file(graph, file_path):
-    """
+    """v
     TODO: read content from file_path, then add nodes and edges to graph object
-
     note that grpah object will be either of AdjacencyList, AdjacencyMatrix or ObjectOriented
-
     In example, you will need to do something similar to following:
 
     1. add number of nodes to graph first (first line)
@@ -38,8 +38,7 @@ def construct_graph_from_file(graph, file_path):
 
     with open(file_path) as f:
         content = f.read().splitlines()
-
-    num_nodes = int(content[0])
+        num_nodes = int(content[0])
 
     for index in range(num_nodes):
         my_node = Node(index)
@@ -52,6 +51,7 @@ def construct_graph_from_file(graph, file_path):
 
     return graph
 
+
 class Node(object):
     """Node represents basic unit of graph"""
     def __init__(self, data):
@@ -59,11 +59,13 @@ class Node(object):
 
     def __str__(self):
         return 'Node({})'.format(self.data)
+
     def __repr__(self):
         return 'Node({})'.format(self.data)
 
     def __eq__(self, other_node):
         return self.data == other_node.data
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
@@ -77,13 +79,16 @@ class Edge(object):
         self.from_node = from_node
         self.to_node = to_node
         self.weight = weight
+
     def __str__(self):
         return 'Edge(from {}, to {}, weight {})'.format(self.from_node, self.to_node, self.weight)
+
     def __repr__(self):
         return 'Edge(from {}, to {}, weight {})'.format(self.from_node, self.to_node, self.weight)
 
     def __eq__(self, other_node):
         return self.from_node == other_node.from_node and self.to_node == other_node.to_node and self.weight == other_node.weight
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
@@ -128,10 +133,10 @@ class AdjacencyList(object):
         if node in self.adjacency_list:
             self.adjacency_list.pop(node, None)
             result = True
-        for k,v in self.adjacency_list.items():
-            for edge in v:
+        for key_node, edge_list in self.adjacency_list.items():
+            for edge in edge_list:
                 if edge.to_node == node:
-                    v.remove(edge)
+                    edge_list.remove(edge)
                     result = True
 
         return result
@@ -187,9 +192,7 @@ class AdjacencyMatrix(object):
             self.nodes.append(node)
             for row_i in self.adjacency_matrix:
                 row_i.append(0)
-
             self.adjacency_matrix.append([0 for x in range(len(self.nodes))])
-
             return True
 
     def remove_node(self, node):
