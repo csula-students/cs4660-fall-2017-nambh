@@ -112,35 +112,39 @@ class AdjacencyList(object):
 
     def adjacent(self, node_1, node_2):
         if node_1 in self.adjacency_list:
-            if node_2 in self.adjacency_list[node_1]:
-                return True
-            else:
-                return False
-        else:
-            return False
+            for edge in self.adjacency_list[node_1]:
+                if edge.to_node == node_2:
+                    return True
+        return False
 
     def neighbors(self, node):
         neighbors = []
         if node in self.adjacency_list:
-            for key in self.adjacency_list[node]:
-                neighbors.append(key)
+            for edge in self.adjacency_list[node]:
+                neighbors.append(edge.to_node)
             return neighbors
         else:
-            return 0
+            return []
 
     def add_node(self, node):
         if node in self.adjacency_list:
             return False
         else:
-            self.adjacency_list[node] = {}
+            self.adjacency_list[node] = []
             return True
 
     def remove_node(self, node):
-        for k in range(len(self.adjacency_list)):
-            if self.adjacency_list(k) == node:
-                del self.adjacency_list[node]
-                return true
-        return false
+        result = False
+        if node in self.adjacency_list:
+            self.adjacency_list.pop(node, None)
+            result = True
+        for k,v in self.adjacency_list.items():
+            for edge in v:
+                if edge.to_node == node:
+                    v.remove(edge)
+                    result = True
+
+        return result
 
     def add_edge(self, edge):
         # check if the edge is already existed
@@ -148,14 +152,14 @@ class AdjacencyList(object):
             if edge.to_node in self.adjacency_list[edge.from_node]:
                 return False
         else:
-            self.adjacency_list[edge.from_node].append(edge.to_node)
+            self.adjacency_list[edge.from_node].append(edge)
             return True
 
     def remove_edge(self, edge):
         # if edge is existed
         if edge.from_node in self.adjacency_list:
-            if edge.to_node in self.adjacency_list[edge.from_node]:
-                self.adjacency_list[edge.from_node].remove(edge.to_node)
+            if edge in self.adjacency_list[edge.from_node]:
+                self.adjacency_list[edge.from_node].remove(edge)
                 return True
         else:
             return False
@@ -172,10 +176,7 @@ class AdjacencyMatrix(object):
 
     def __get_node_index(self, node):
         """helper method to find node index"""
-        if node not in self.nodes:
-            return False
-        else:
-            return self.nodes.index(node)
+        return self.nodes.index(node)
 
     def adjacent(self, node_1, node_2):
         # check if the two nodes are adjacent
@@ -186,10 +187,11 @@ class AdjacencyMatrix(object):
 
     def neighbors(self, node):
         neighbors = []
-        for k in range(len(self.adjacency_matrix)):
+        for k in range(len(self.adjacency_matrix(self.__get_node_index(node)))):
             # check if node k in adjacent to node
             if self.adjacency_matrix[self.__get_node_index(node)][k] != 0:
-                neighbors.append(Node(k))
+                neighbors.append(self.node(k))
+
         return neighbors
 
     def add_node(self, node):
@@ -197,50 +199,43 @@ class AdjacencyMatrix(object):
             return False
         else:
             self.nodes.append(node)
-            newRow = []
-            for k in range(len(self.nodes)):
-                self.adjacency_matrix[k].append(0)
-                newRow.append(0)
-        self.adjacency_matrix.append(newRow)
+            for row_i in self.adjacency_matrix:
+                row_i.append(0)
+
+            self.adjacency_matrix.append([0 for x in range(len(self.nodes))])
+
         return True
 
     def remove_node(self, node):
         if node not in self.nodes:
             return False
         else:
+            for row_i in self.adjacency_matrix:
+                row_i.pop(self.__get_node_index(node))
             self.nodes.remove(node)
-            # delete a row of index of the node
-            del self.adjacency_matrix[self.__get_node_index(node)]
-            for num in range(len(self.nodes)):
-                # delete all the column of the index of the node
-                del self.adjacency_matrix[num][(self.__get_node_index(node))]
-            return True
+            self.adjacency_matrix.pop(self.__get_node_index(node))
+
+        return True
 
     def add_edge(self, edge):
         # check if the edge is already existed
-        if self.adjacency_matrix[self.__get_node_index(edge.from_node)][self.__get_node_index(edge.to_node)] != 0:
+        if self.adjacency_matrix[self.__get_node_index(edge.from_node)][self.__get_node_index(edge.to_node)] == edge.weight:
             return False
         else:
             # addd new adge and assign the weight of the edge
-            self.adjacency_matrix[self.__get_node_index(
-                edge.to_node)][self.__get_node_index(edge.from_node)] = edge.weight
             self.adjacency_matrix[self.__get_node_index(
                 edge.from_node)][self.__get_node_index(edge.to_node)] = edge.weight
             return True
 
     def remove_edge(self, edge):
         # check if the edge is existed
-        if (self.adjacency_matrix[self.__get_node_index(edge.from_node)][self.__get_node_index(edge.to_node)]) != 0:
+        if (self.adjacency_matrix[self.__get_node_index(edge.from_node)][self.__get_node_index(edge.to_node)]) == 0:
+            return False
+        else:
             # remove the edge
-            self.adjacency_matrix[self.__get_node_index(edge.to_node)][self.__get_node_index(edge.from_node)] = 0
             self.adjacency_matrix[self.__get_node_index(
                 edge.from_node)][self.__get_node_index(edge.to_node)] = 0
             return True
-        else:
-            return False
-
-
-
 
 class ObjectOriented(object):
     """ObjectOriented defines the edges and nodes as both list"""
@@ -254,15 +249,16 @@ class ObjectOriented(object):
         for edge in self.edges:
             if edge.from_node == node_1 and edge.to_node == node_2:
                 return True
+
         return False
 
     def neighbors(self, node):
-        new_num = []
+        neighbors = []
 
         for edge in self.edges:
             if node == edge.from_node:
-                new_num.append(edge.to_node)
-        return new_num
+                neighbors.append(edge.to_node)
+        return neighbors
 
     def add_node(self, node):
         if node in self.nodes:
@@ -297,73 +293,7 @@ class ObjectOriented(object):
 
 
 def main():
-    new_graph = construct_graph_from_file(
-        ObjectOriented(), "../test/fixtures/graph-1.txt")
-
+    new_graph = construct_graph_from_file(AdjacencyMatrix(),"../test/fixtures/graph-2.txt")
 
 if __name__ == "__main__":
     main()
-
-"""
-    Explain with the runtime analysis on each method you have implemented in each of the representation using Big-O notation
-
-	If the graph have n nodes and m edges, then
-		For the Adjacency Matrix:
-			Nodes
-			The time to check one node is O(1), so time to check all n nodes is n*O(1) = O(n)
-			The time to check one edge connect to a node is O(1), so total time to iterate over edges incident to nodes is m*O(1) = O(m)
-			Total time need is: O(n + m)
-
-		For Adjacency Matrix:
-			The time to check one node is O(1), and Matrix size is n x n, so time to check all the node is n x n x O(1) = O(n^2)
-			Total time is O(n^2)
-
-		For ObjectedOriented:
-			The time to check one node is O(1), so time to check all n nodes is n*O(1) = O(n)
-			The time to check one edge is O(1), so total time to iterate all the edges is m*O(1) = O(m)
-			Total time need is: O(n + m)
-
-
-    Consider Chess, what is the performance measure, environment, actuator and sensor?
-	    performance measure:
-            protect the one's king safe, attack and capture the opponent's pieces, especially the opponent's king in order to win the game. make a move fast.
-	    environment:
-            gameboard with 64 squares arranged in an 8×8 grid, the position and the posibility of the move of the opponent's pieces (initial 16 pieces).The colors of the 64 squares alternate and are referred to as light and dark squares.
-	    actuator:
-            move the pieces so that they can block the move and attack the opponent's pieces, especially the king, meanwhile, protecting its own king.
-	    sensor:
-            the position and all the move that each piece can make.
-
-
-    Same with Chess, formulate the problem in 5 components (initial state, possible actions, transition model, goal test, and path cost)
-
-        initial state:
-            Each player begins with 16 pieces: one king, one queen, two rooks, two knights, two bishops, and eight pawns
-        possible actions:
-            Each of the six piece types moves differently, with the most powerful being the queen and the least powerful the pawn.
-
-            The king moves one square in any direction. The king also has a special move called castling that involves also moving a rook.
-            The rook can move any number of squares along a rank or file, but cannot leap over other pieces. Along with the king, a rook is involved during the king's castling move.
-            The bishop can move any number of squares diagonally, but cannot leap over other pieces.
-            The queen combines the power of a rook and bishop and can move any number of squares along a rank, file, or diagonal, but cannot leap over other pieces.
-            The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an "L"-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.
-            The pawn can move forward to the unoccupied square immediately in front of it on the same file, or on its first move it can advance two squares along the same file, provided both squares are unoccupied (black dots in the diagram); or the pawn can capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square (black "x"s). A pawn has two special moves: the en passant capture and promotion.
-
-        transition model:
-             Given state, the position, the possible move and the action that the opponent could make, the player will make a move.
-        goal test:
-            Block or attack the opponent'king in the check.
-        path cost:
-            Each move would cost 1
-
-    Define Chess environment type, is it fully observable or partially observable, is it deterministic or stochastic, is it discrete or continuous, is it benign or adversarial?
-
-        The Chess environment is fully observable
-            since agent can fully observe all variables of environment.
-        It is deterministic
-            since there is no random effects,each moves determines next state deterministically
-        It is discrete
-            since Number of states in games is countable.
-        It is adversarial.
-            since Environment goes against you.
-"""
