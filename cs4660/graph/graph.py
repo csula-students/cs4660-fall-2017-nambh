@@ -136,17 +136,11 @@ class AdjacencyList(object):
             return True
 
     def remove_node(self, node):
-        # initial assume the node is not in the graph
-        isRemove = False
-        # if the node is in the graph
-        if node in self.adjacency_list:
-            self.adjacency_list.pop(node, None)
-            isRemove = True
-        for nodes, edges in self.adjacency_list.items():
-            if node in nodes:
-                nodes.remove(node)
-                isRemove = True
-        return isRemove
+        for k in range(len(self.adjacency_list)):
+            if self.adjacency_list(k) = node:
+                del self.adjacency_list[node]
+                return true
+        return false
 
     def add_edge(self, edge):
         # check if the edge is already existed
