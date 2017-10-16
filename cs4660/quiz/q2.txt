@@ -1,1 +1,50 @@
-https://github.com/csula-students/cs4660-fall-2017-nambh/tree/quiz2
+link to my solution:
+https://github.com/csula-students/cs4660-fall-2017-nambh/blob/quiz2/cs4660/quiz/main.py
+
+BFS Path:
+Empty Room(7f3dc077574c013d98b2de8f735058b4):Dire Tombs(44dfaae131fa9d0a541c3eb790b57b00):0
+Dire Tombs(44dfaae131fa9d0a541c3eb790b57b00):Dire Tombs(15fd980b830cd4aa5d518e3df71aa6b1):0
+Dire Tombs(15fd980b830cd4aa5d518e3df71aa6b1):Chamber(83bb5112a32d2fe8790e7a9df8a152ae):0
+Chamber(83bb5112a32d2fe8790e7a9df8a152ae):Dark Room(f1f131f647621a4be7c71292e79613f9):-30
+
+Total HP: -30
+
+Dijkstra Path:
+Empty Room(7f3dc077574c013d98b2de8f735058b4):Empty Room(dcb4565202e804f1f27120dabb32bd87):0
+Empty Room(dcb4565202e804f1f27120dabb32bd87):Room with cage(816fdf15b029e3ca2f4ba323bf6757d2):20
+Room with cage(816fdf15b029e3ca2f4ba323bf6757d2):Empty Room(116bac38467b764ffa2d0bf62990100b):0
+Empty Room(116bac38467b764ffa2d0bf62990100b):Dark Room(02e3bb466319aa0cd87a0ff4c3e38b4e):0
+Dark Room(02e3bb466319aa0cd87a0ff4c3e38b4e):Room with cage(cbff26e3f081b1573981f717f10e7061):20
+Room with cage(cbff26e3f081b1573981f717f10e7061):Hall Way(0d1d67f3e6bf24e4c2acff975025a497):0
+Hall Way(0d1d67f3e6bf24e4c2acff975025a497):Empty Room(e0c53f50e98a3468077c39cd9a60f494):0
+Empty Room(e0c53f50e98a3468077c39cd9a60f494):Chamber(83bb5112a32d2fe8790e7a9df8a152ae):0
+Chamber(83bb5112a32d2fe8790e7a9df8a152ae):Empty Room(e50de67eea8915d52bf2c2c632a0e0ed):0
+Empty Room(e50de67eea8915d52bf2c2c632a0e0ed):Chamber(ec50caeab6d73a413ba4f03b11530d14):0
+Chamber(ec50caeab6d73a413ba4f03b11530d14):Hall Way(39363144788feb45c430fcb62397dabb):0
+Hall Way(39363144788feb45c430fcb62397dabb):Empty Room(8bb10163faa45c584f30c27d576292f9):0
+Empty Room(8bb10163faa45c584f30c27d576292f9):Chamber(31567c6f68ed25ce5fcb5e2f7e8e016c):0
+Chamber(31567c6f68ed25ce5fcb5e2f7e8e016c):Room with cage(e22cffe2464b067c164b52aa82562a40):20
+Room with cage(e22cffe2464b067c164b52aa82562a40):Dark Room(fd3bfe68d4469e378c8f27304b5b6bdd):0
+Dark Room(fd3bfe68d4469e378c8f27304b5b6bdd):Empty Room(94e0aaa917247652bd0d3f309b944131):0
+Empty Room(94e0aaa917247652bd0d3f309b944131):Dire Tombs(15fd980b830cd4aa5d518e3df71aa6b1):0
+Dire Tombs(15fd980b830cd4aa5d518e3df71aa6b1):Room with cage(66d2a976b926dfe017a065dc18f6c0c9):20
+Room with cage(66d2a976b926dfe017a065dc18f6c0c9):Dark Room(f8d7ec2b694290b9f78f8afa7e690b4b):20
+Dark Room(f8d7ec2b694290b9f78f8afa7e690b4b):Dire Tombs(8af54fb756e0e034262c57dbcd728d48):0
+Dire Tombs(8af54fb756e0e034262c57dbcd728d48):Empty Room(004caf1cc93f415e407336d9ac09e48e):0
+Empty Room(004caf1cc93f415e407336d9ac09e48e):Dark Room(b55da649495d78cc194f9d990fda4abb):0
+Dark Room(b55da649495d78cc194f9d990fda4abb):Chamber(f91fc840ca9a290fdfaa7e088286e0fa):0
+Chamber(f91fc840ca9a290fdfaa7e088286e0fa):Dark Room(819d066e33e49c216ba90b3e9d98f689):0
+Dark Room(819d066e33e49c216ba90b3e9d98f689):Room with cage(888cfa3b3a737933e25f4875a1ca9ffd):0
+Room with cage(888cfa3b3a737933e25f4875a1ca9ffd):Empty Room(d00effa5097f5ad2a4169573e38523f3):0
+Empty Room(d00effa5097f5ad2a4169573e38523f3):Room with cage(42986d4cbde19e4319ab0a2c1e5a61e9):0
+Room with cage(42986d4cbde19e4319ab0a2c1e5a61e9):Empty Room(7449794c0b43c75eb61cc8a6a9473431):0
+Empty Room(7449794c0b43c75eb61cc8a6a9473431):Chamber(7257a81bced22e1009adbf2d558679c1):0
+Chamber(7257a81bced22e1009adbf2d558679c1):Hall Way(c7b397b12c1af8fbf892c4d224f784d0):0
+Hall Way(c7b397b12c1af8fbf892c4d224f784d0):Chamber(e68e678fbdd3811e0e73adc40d5e5208):0
+Chamber(e68e678fbdd3811e0e73adc40d5e5208):Empty Room(fdd377e5e8828671ac8eb410ed1983fd):0
+Empty Room(fdd377e5e8828671ac8eb410ed1983fd):Room with cage(b9812a50de8776f012b77ba7f12df6cf):20
+Room with cage(b9812a50de8776f012b77ba7f12df6cf):Chamber(b07dcf1aa04ff9dd480c7b2164b7fafb):-30
+Chamber(b07dcf1aa04ff9dd480c7b2164b7fafb):Dark Room(f1f131f647621a4be7c71292e79613f9):-30
+
+Total HP: 60
+
