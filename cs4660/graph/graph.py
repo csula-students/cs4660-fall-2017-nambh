@@ -106,59 +106,50 @@ class AdjacencyList(object):
         self.adjacency_list = {}
 
     def adjacent(self, node_1, node_2):
-        if node_1 in self.adjacency_list:
-            for edge in self.adjacency_list[node_1]:
-                if edge.to_node == node_2:
-                    return True
-        return False
+        if (node_2 in self.adjacency_list[node_1]):
+            return True
+        else:
+            return False
 
     def neighbors(self, node):
-        neighbors = []
-        if node in self.adjacency_list:
-            for edge in self.adjacency_list[node]:
-                neighbors.append(edge.to_node)
-            return neighbors
-        else:
-            return []
+       return list(self.adjacency_list[node])
 
     def add_node(self, node):
         if node in self.adjacency_list:
             return False
         else:
-            self.adjacency_list[node] = []
+            self.adjacency_list[node] = {}
             return True
 
     def remove_node(self, node):
-        result = False
         if node in self.adjacency_list:
             self.adjacency_list.pop(node, None)
-            result = True
-        for key_node, edge_list in self.adjacency_list.items():
-            for edge in edge_list:
-                if edge.to_node == node:
-                    edge_list.remove(edge)
-                    result = True
-
-        return result
+            for key_node in self.adjacency_list.keys():
+                if (node in self.adjacency_list[key_node]):
+                    self.adjacency_list[key_node].pop(node)
+            return True
+        else:
+            return False
 
     def add_edge(self, edge):
-        if edge.from_node in self.adjacency_list:
-            edges = self.adjacency_list[edge.from_node]
-            if edge in edges:
-                return False
-            else:
-                self.adjacency_list[edge.from_node].append(edge)
-                return True
-        self.adjacency_list[edge.from_node] = [edge]
-        return True
+        if edge.to_node in self.adjacency_list[edge.from_node]:
+            return False
+        else:
+            self.adjacency_list[edge.from_node][edge.to_node] = edge.weight
+            return True
 
     def remove_edge(self, edge):
-        if edge.from_node in self.adjacency_list:
-            if edge in self.adjacency_list[edge.from_node]:
-                self.adjacency_list[edge.from_node].remove(edge)
-                return True
-        return False
+        if edge.to_node in self.adjacency_list[edge.from_node]:
+            self.adjacency_list[edge.from_node].pop(edge.to_node)
+            return True
+        else:
+            return False
 
+    def get_edge(self,fromNode,toNode):
+        return Edge(fromNode,toNode,self.adjacency_list[fromNode][toNode])
+
+    def distance(self,fromNode, toNode):
+        return (self.adjacency_list[fromNode][toNode])
 
 class AdjacencyMatrix(object):
     def __init__(self):
@@ -230,6 +221,12 @@ class AdjacencyMatrix(object):
         """helper method to find node index"""
         return self.nodes.index(node)
 
+    def get_edge(self, fromNode, toNode):
+        return Edge(fromNode, toNode, self.adjacency_matrix[self.__get_node_index(fromNode)][self.__get_node_index(toNode)])
+
+    def distance(self, fromNode, toNode):
+        return self.adjacency_matrix[self.__get_node_index(fromNode)][self.__get_node_index(toNode)]
+
 class ObjectOriented(object):
     """ObjectOriented defines the edges and nodes as both list"""
 
@@ -284,9 +281,12 @@ class ObjectOriented(object):
         else:
             return False
 
+    def get_edge(self, fromNode, toNode):
+        for edge in self.edges:
+            if edge.from_node == fromNode and edge.to_node == toNode:
+                return edge
 
-def main():
-    new_graph = construct_graph_from_file(AdjacencyMatrix(),"../test/fixtures/graph-2.txt")
-
-if __name__ == "__main__":
-    main()
+    def distance(self,fromNode, toNode):
+        for edge in self.edges:
+            if edge.from_node == fromNode and edge.to_node == toNode:
+                return edge.weight

@@ -10,29 +10,32 @@ class SimpleFile(object):
         """
 
     def get_mean(self, line_number):
-        """
-        get_mean retrieves the mean value of the list by line_number (starts
-        with zero)
-        """
-        pass
+        file = open("./test/fixtures/array.txt", "r")
+        data = (file.readlines()[line_number])
+        l = data.split(' ')
+        l = list(map(int, l))
+        avg = (float(sum(l))/len(l))
+        return avg
 
     def get_max(self, line_number):
-        """
-        get_max retrieves the maximum value of the list by line_number (starts
-        with zero)
-        """
-        pass
+        file = open("./test/fixtures/array.txt", "r")
+        data = (file.readlines()[line_number])
+        l = data.split(' ')
+        l = list(map(int, l))
+        maxval = max(l)
+        return maxval
 
     def get_min(self, line_number):
-        """
-        get_min retrieves the minimum value of the list by line_number (starts
-        with zero)
-        """
-        pass
+        file = open("./test/fixtures/array.txt", "r")
+        data = (file.readlines()[line_number])
+        l = data.split(' ')
+        l = list(map(int, l))
+        minval = min(l)
+        return minval
 
     def get_sum(self, line_number):
-        """
-        get_sum retrieves the sumation of the list by line_number (starts with
-        zero)
-        """
-        pass
+        file = open("./test/fixtures/array.txt", "r")
+        data = (file.readlines()[line_number])
+        l = data.split(' ')
+        l = list(map(int, l))
+        return sum(l)
